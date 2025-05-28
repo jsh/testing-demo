@@ -6,7 +6,9 @@ readme = "README.md"
 requires-python = ">=3.13"
 authors = [{name = "Jeffrey S. Haemer", email = "jeffrey.haemer@gmail.com"}]
 license = "MIT"
-dependencies = []
+dependencies = [
+    "mutmut>=3.3.0",
+]
 
 [dependency-groups]
 dev = [
@@ -28,4 +30,11 @@ omit = [
     "__init__.py",
     "main.py",
     "tests/*",
+    "mutants/*",
 ]
+[tool.mutmut]
+# Specify the path(s) to your source code file(s) relative to the project root.
+# Use "." for the current directory, or list specific files.
+paths_to_mutate = ["compares.py"]
+# Command to run your tests from the project root directory.
+runner = "pytest tests/"

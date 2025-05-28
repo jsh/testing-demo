@@ -14,7 +14,8 @@ def test_my_eq():
     assert my_eq(2 * pi, tau)
     assert not my_eq(pi, tau)
 
+
 def test_my_lt():
     """Unit-test my_lt()."""
     assert my_lt(e, pi)
-    assert not my_lt(2*pi, tau)
+    assert not my_lt(2 * pi, tau)

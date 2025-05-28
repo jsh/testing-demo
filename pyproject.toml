@@ -12,6 +12,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "poethepoet>=0.34.0",
     "pre-commit>=4.2.0",
     "pytest>=8.3.5",
     "pytest-cov>=6.1.1",
@@ -38,3 +39,10 @@ omit = [
 paths_to_mutate = ["compares.py"]
 # Command to run your tests from the project root directory.
 runner = "pytest tests/"
+[tool.poe.tasks]
+clean = "git clean -dfx --exclude=.venv"
+rm-mutants = "rm -rf mutants/"
+test = "pytest"
+clean-test = ["rm-mutants", "test"]
+pre-commit = "pre-commit run --all-files"
+mutmut = "mutmut run"

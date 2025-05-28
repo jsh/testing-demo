@@ -12,4 +12,5 @@ wheels/
 
 # tool-generated files
 .coverage
-node_modules
+node_modules/
+mutants/

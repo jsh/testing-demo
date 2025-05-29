@@ -42,7 +42,7 @@ runner = "pytest tests/"
 [tool.poe.tasks]
 clean = "git clean -dfx --exclude=.venv"
 rm-mutants = "rm -rf mutants/"
-test = "pytest"
-clean-test = ["rm-mutants", "test"]
+test-only = "pytest"
+test = ["rm-mutants", "test-only"]
 pre-commit = "pre-commit run --all-files"
 mutmut = "mutmut run"

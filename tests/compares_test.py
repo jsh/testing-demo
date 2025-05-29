@@ -6,7 +6,7 @@ from compares import my_gt, my_eq, my_lt
 def test_my_gt():
     """Unit-test my_gt()."""
     assert my_gt(pi, e)
-    assert not my_gt(pi, tau)
+    assert not my_gt(2 * pi, tau)
 
 
 def test_my_eq():

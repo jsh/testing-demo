@@ -15,15 +15,37 @@ repos:
       - id: check-json
       - id: detect-private-key
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.10 # Consider updating to the latest version
+    rev: v0.11.13 # Consider updating to the latest version
     hooks:
       # Run the linter and auto-fix issues
       - id: ruff-check
-        args: [--fix, --exit-non-zero-on-fix]
+        # args: [--fix, --exit-non-zero-on-fix]
       # Run the formatter
       - id: ruff-format
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.1
+    rev: v3.20.0
     hooks:
       - id: pyupgrade
         args: [--py311-plus]
+  - repo: local
+    hooks:
+      - id: ty-check
+        name: ty check
+        entry: ty check
+        language: system
+        types: [python]
+        pass_filenames: false # ty expects a path, or runs on current dir if none.
+                             # Setting to false means it will run on the current dir.
+                             # If you want it to check only staged files, you'll need
+                             # to pass filenames, which requires a custom script
+                             # or a different approach (see alternative below).
+        # args: ["."] # Optional: specify the directory to check, e.g., the current directory.
+        # You might need to adjust this depending on how you want ty to run.
+
+#   - repo: https://github.com/astral-sh/ty
+#
+#     rev: 0.0.1-alpha.8 # Find the latest release on their GitHub
+#     hooks:
+#       - id: ty
+#           # args: ["--config", "pyproject.toml"] # If you have a specific config
+#

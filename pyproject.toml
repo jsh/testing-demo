@@ -1,23 +1,23 @@
 [project]
-name = "testing-demo"
-version = "0.1.0"
-description = "Simple demo of testing tricks"
-readme = "README.md"
-requires-python = ">=3.13"
 authors = [{name = "Jeffrey S. Haemer", email = "jeffrey.haemer@gmail.com"}]
+description = "Simple demo of testing tricks"
 license = "MIT"
-dependencies = [
-    "mutmut>=3.3.0",
-]
+name = "testing-demo"
+readme = "README.md"
+repository = "https://github.com/jsh/thing"
+requires-python = ">=3.13"
+version = "0.1.0"
 
 [dependency-groups]
 dev = [
+    "mutmut>=3.3.0",
     "poethepoet>=0.34.0",
     "pre-commit>=4.2.0",
     "pytest>=8.3.5",
     "pytest-cov>=6.1.1",
     "pytest-random-order>=1.1.1",
     "ruff>=0.11.11",
+    "ty>=0.0.1a8",
 ]
 [tool.pytest.ini_options]
 addopts = """
@@ -26,6 +26,10 @@ addopts = """
     --cov-report term-missing
     --cov-report html:htmlcov
 """
+[tool.ruff]
+    lint.extend-select = [ "I" ]
+    fix = true
+
 [tool.coverage.run]
 omit = [
     "__init__.py",
@@ -40,9 +44,21 @@ paths_to_mutate = ["compares.py"]
 # Command to run your tests from the project root directory.
 runner = "pytest tests/"
 [tool.poe.tasks]
-clean = "git clean -dfx --exclude=.venv"
-rm-mutants = "rm -rf mutants/"
-test-only = "pytest"
-test = ["rm-mutants", "test-only"]
-pre-commit = "pre-commit run --all-files"
-mutmut = "mutmut run"
+clean.cmd = "git clean -dfx --exclude=.venv"
+clean.help = "Clean up project directory."
+muts.cmd = "mutmut run"
+muts.help = "Mutation-test unit tests"
+_open_report = "open htmlcov/index.html"
+precommit.cmd = "pre-commit run --all-files"
+precommit.help = "All pre-commit checks."
+_rm_mutants = "rm -rf mutants/"
+_test_only = "pytest"
+tests.sequence = ["_rm_mutants", "_test_only"]
+tests.help = "Run unit-tests."
+ty.cmd = "ty check"
+ty.help = "Typecheck with ty."
+_update-pre-commit = "pre-commit autoupdate"
+_update-repo = "git pull"
+_update_uv = "uv self update"
+updates.sequence = ["_update-pre-commit", "_update-repo", "_update_uv"]
+updates.help = "Take important updates."

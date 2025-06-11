@@ -1,6 +1,6 @@
 from math import e, pi, tau
 
-from compares import my_gt, my_eq, my_lt
+from compares import my_eq, my_gt, my_lt
 
 
 def test_my_gt():
